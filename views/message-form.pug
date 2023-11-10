@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1 New Message
+
+  form(method="POST", action="")
+    div
+      label(for="title") Title:
+      input(
+        type="text",
+        placeholder="Title",
+        name="title",
+        required="true",
+        maxLength="100"
+        value=(undefined===title ? '' : title)
+      )
+    div
+      label(for="message") Text:
+      textarea(
+        name="message",
+        placeholder="message",
+        required="true",
+        maxLength="100"
+        value=(undefined===message ? '' : message)
+      )
+    div
+      input(type="hidden", name="owner", value=userid)
+    button(type="submit") Submit
+
+  if errors
+    ul
+      each error in errors
+        li!= error.msg

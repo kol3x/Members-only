@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  if user
+    p
+      a(href="./new-message") Create a new message
+    if !user.isMember
+      p
+        a(href="./activation") Activate membership
+  else
+    p
+      a(href="./login") Login
+    p
+      a(href="./sign-up") Or sign up!
+  ul
+    h4 Messages:
+    each message in messages 
+      li
+        if user && user.isMember
+          h4 Posted on: #{ message.time }
+          h4 Author: #{ message.owner.name } 
+        h5= message.title
+        p= message.text
+        if user && user.isAdmin
+          form(method="POST", action="")
+            div
+              input(
+                type="hidden",
+                name="messageid",
+                required="true",
+                value=message._id
+              )
+            button(type="submit") Delete message

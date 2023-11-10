@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 Membership activation.
+
+  form(method="POST", action="")
+    div
+      label(for="code") Secret membership code:
+      input(
+        type="text",
+        placeholder="Secret code",
+        name="code",
+        required="true",
+        maxLength="100"
+        value=(undefined===code ? '' : code)
+      )
+    button(type="submit") Submit
+
+  if errors
+    ul
+      each error in errors
+        li!= error.msg
